@@ -1,9 +1,9 @@
 package decoder_legacy
 
 import (
+	"github.com/koykov/byteconv"
 	"github.com/koykov/decoder"
 	_ "github.com/koykov/decoder_vector" // require to add support of vector pools
-	"github.com/koykov/fastconv"
 	"github.com/koykov/vector"
 )
 
@@ -51,9 +51,9 @@ func cbParse(ctx *decoder.Ctx, args []any, ipool string) (err error) {
 	case []byte:
 		src = args[0].([]byte)
 	case *string:
-		src = fastconv.S2B(*args[0].(*string))
+		src = byteconv.S2B(*args[0].(*string))
 	case string:
-		src = fastconv.S2B(args[0].(string))
+		src = byteconv.S2B(args[0].(string))
 	case *vector.Node:
 		node := args[0].(*vector.Node)
 		if node.Type() == vector.TypeStr {
@@ -73,7 +73,7 @@ func cbParse(ctx *decoder.Ctx, args []any, ipool string) (err error) {
 			if err = vec.Parse(src); err != nil {
 				return err
 			}
-			err = ctx.SetVectorNode(fastconv.B2S(*key), vec.Root())
+			err = ctx.SetVectorNode(byteconv.B2S(*key), vec.Root())
 		}
 	}
 	return
