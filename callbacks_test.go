@@ -28,7 +28,7 @@ var (
 
 func init() {
 	rules, _ := decoder.Parse([]byte(rulesSrc))
-	decoder.RegisterDecoder("nestedJSON", rules)
+	decoder.RegisterDecoderKey("nestedJSON", rules)
 }
 
 func TestLegacy(t *testing.T) {
